@@ -1,0 +1,25 @@
+{
+  "name": "Make Guides",
+  "description": "Add guides to a selected layer or artboard using box model shorthand notation",
+  "author": "Ben Ashman",
+  "homepage": "http://github.com/benashman/sketch-make-guides",
+  "version": 1.0,
+  "identifier": "com.benashman.sketch.make-guides",
+  "updateURL": "http://github.com/benashman/sketch-make-guides",
+  "compatibleVersion": 3.3,
+  "bundleVersion": 1,
+  "commands": [
+    {
+      "name": "Make Guides",
+      "identifier": "make-guides",
+      "shortcut": "cmd g",
+      "script": "Make Guides.sketchscript",
+    },
+  ],
+  "menu": {
+    "isRoot": true,
+    "items": [
+      "make-guides"
+    ]
+  }
+}

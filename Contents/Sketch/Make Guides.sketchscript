@@ -1,0 +1,61 @@
+var ctx = {}
+
+var onRun = function(context) {
+  ctx.doc = context.document
+  ctx.selection = context.selection
+  ctx.artboard = ctx.doc.currentPage().currentArtboard()
+  ctx.object = {
+    layer: null,
+    layerHeight: null,
+    layerWidth: null,
+  }
+
+  // Get selected object
+  if (ctx.selection.count() == 0) {
+    ctx.object.layer = ctx.artboard
+  } else {
+    for (var i = 0; i < ctx.selection.count(); i++) {
+      ctx.object.layer = ctx.selection[i]
+    }
+  }
+
+  ctx.object.layerHeight = ctx.object.layer.frame().height()
+  ctx.object.layerWidth = ctx.object.layer.frame().width()
+
+  // Prompt for input
+  var d = context.document
+  var input = [d askForUserInput:"Format: Top, Right, Bottom, Left" initialValue: ""]
+  var values = input.split(",")
+  var argCount = values.length
+
+  var t = values[0]
+  var r = values[1]
+  var b = values[2]
+  var l = values[3]
+
+  if (argCount <= 4) {
+    switch(argCount) {
+      case 1:
+        makeGuides(t,t,t,t)
+        break
+      case 2:
+        makeGuides(t,r,t,r)
+        break
+      case 3:
+        makeGuides(t,r,b,r)
+        break
+      case 4:
+        makeGuides(t,r,b,l)
+        break
+      default:
+        handleErrors()
+    }
+  }
+}
+
+var makeGuides = function(top, right, bottom, left) {
+  ctx.artboard.verticalRulerData().addGuideWithValue(top)
+  ctx.artboard.horizontalRulerData().addGuideWithValue(ctx.object.layerWidth - right)
+  ctx.artboard.verticalRulerData().addGuideWithValue(ctx.object.layerHeight - bottom)
+  ctx.artboard.horizontalRulerData().addGuideWithValue(left)
+}
