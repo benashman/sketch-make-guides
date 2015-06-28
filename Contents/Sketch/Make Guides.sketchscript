@@ -7,7 +7,7 @@ var onRun = function(context) {
   ctx.object = {
     layer: null,
     layerHeight: null,
-    layerWidth: null,
+    layerWidth: null
   }
 
   // Get selected object
